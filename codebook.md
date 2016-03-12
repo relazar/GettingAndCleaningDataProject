@@ -2,19 +2,19 @@
 The codebook was created in the last part of the R script run_analysis. Please refer to the run_analysis.md file for further details.
 The codebook itself is in CSV format and it lists the variable names and description of each variable in the tidy data set is given as follows:
 
-Variable name    | Description
+VariableName     | Description
 -----------------|------------
-subject          | ID the subject who performed the activity for each window sample. Its range is from 1 to 30.
-activity         | Activity name
-featDomain       | Feature: Time domain signal or frequency domain signal (Time or Freq)
-featInstrument   | Feature: Measuring instrument (Accelerometer or Gyroscope)
-featAcceleration | Feature: Acceleration signal (Body or Gravity)
-featVariable     | Feature: Variable (Mean or SD)
-featJerk         | Feature: Jerk signal
-featMagnitude    | Feature: Magnitude of the signals calculated using the Euclidean norm
-featAxis         | Feature: 3-axial signals in the X, Y and Z directions (X, Y, or Z)
-featCount        | Feature: Count of data points used to compute `average`
-featAverage      | Feature: Average of each variable for each activity and each subject
+subject          | The ID of the subject who performed the activity. Values are numeric and range from 1 to 30
+activity         | The name of activity undertaken. The activities are: {WALKING, WALKING UPSTAIRS, WALKING DOWNSTAIRS, SITTING, STANDING, LAYING}
+DomainSignal     | Feature: Time domain signal or frequency domain signal (Time or Freq)
+Acceleration     | Feature: Measuring instrument (Accelerometer or Gyroscope)
+Instrument       | Feature: Acceleration signal (Body or Gravity)
+Jerk             | Feature: Variable (Mean or SD)
+Magnitude        | Feature: Jerk signal
+Measure          | Feature: Magnitude of the signals calculated using the Euclidean norm
+Axis             | Feature: 3-axial signals in the X, Y and Z directions (X, Y, or Z)
+Average          | Feature: Count of data points used to compute `average`
+Count            | Feature: Average of each variable for each activity and each subject
 
 
 
