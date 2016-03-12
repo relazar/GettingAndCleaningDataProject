@@ -1,0 +1,12 @@
+VariableName	Description
+subject	The ID of the subject who performed the activity. Values are numeric and range from 1 to 30
+activity	The name of activity undertaken. The activities are: {WALKING, WALKING UPSTAIRS, WALKING DOWNSTAIRS, SITTING, STANDING, LAYING}
+DomainSignal	The time or frequency domain signal. The singals are: {Time, Frequency}
+Acceleration	The acceleration signal: {Body, Gravity}
+Instrument	The measuring instrument. The instruments are: {Accelerometer, Gyroscope}
+Jerk	An indication of whether the Jerk signal was calculated. Possible values are: {No, Yes}
+Magnitude	An indication of whether the magnitude of the signals was calculated. Possible values are: {No, Yes}
+Measure	The measures which were calculated from the original observations. Possible values are: {Mean, Standard Deviation}
+Axis	The axis on which the signals were calculated. Possible values are: {X, Y, Z, Not Applicable}
+Average	The average value for each bucket
+Count	The count of each bucket
