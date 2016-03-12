@@ -13,7 +13,8 @@ This document will show the R scripts and provide commentary around how these sc
 
 ## 1.	 Assign libraries
 Assign the libraries which will be used in the scripts
-```library(plyr)
+```r
+library(plyr)
 library(dplyr)
 library(data.table)
 library(reshape2)
@@ -21,7 +22,7 @@ library(reshape2)
 
 ## 2.	 Download the file and unzip
 Assign the url, destination path and the name of the file in the destination path:
-```
+```r
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 filename <- "UCI HAR Dataset.zip"
 destpath <- "C:/Users/relazar/Documents/Personal/CourSera/Data Science/03 - Getting and Cleaning Data/Course Project/Data"
