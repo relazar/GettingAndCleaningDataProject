@@ -1,4 +1,3 @@
-```r
 ##################### STEP 1 - ASSIGN ALL LIBRARIES TO BE USED IN THE PROGRAM #########################
 library(plyr)
 library(dplyr)
@@ -349,6 +348,3 @@ codebook <- data.frame(VariableName = names(all_data_7), Description = desc)
 
 # Export to codebook into a csv file
 write.table(codebook,"./Code Book.txt",quote=FALSE, sep="\t", row.names=FALSE)
-
-
-r
