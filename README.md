@@ -7,3 +7,6 @@ This README document lists all the components submitted in the github repository
 3.	Code Book.txt – the codebook which lists all the variable names in the tidy data set along with a description of each variable in text format
 4.	codebook.md – a document describing the codebook
 
+## Important note!
+
+The script used to generate the codebook is in the last part of the run_analysis.r file and is explained in the run_analysis.md file
