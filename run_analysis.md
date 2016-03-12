@@ -272,14 +272,14 @@ all_data_3 <- arrange(all_data_2, subject, activityNum)
 ## 6.	 Restructure the data
 In this step we want to create a long and narrow data set in which we split the data into several columns with the following variables for each observation:
 
-Column 1: Domain Signals	 {Time; Frequency}
-Column 2: Accelarator   	 {Body; Gravity; Not Available}
-Column 3: Instrument     	 {Accelerometer; Gyroscope}
-Column 4: Jerk           	 {Yes; No}
-Column 5: Magnitude     	 {Yes; No}
-Column 6: Measure        	 {Mean; Standard Deviation}
-Column 7: Axis           	 {X; Y; Z; Not Applicable}
-Column 8: Value         	 <The outcome>
+1. Column 1: Domain Signals	 {Time; Frequency}
+2. Column 2: Accelarator   	 {Body; Gravity; Not Available}
+3. Column 3: Instrument      {Accelerometer; Gyroscope}
+4. Column 4: Jerk            {Yes; No}
+5. Column 5: Magnitude     	 {Yes; No}
+6. Column 6: Measure         {Mean; Standard Deviation}
+7. Column 7: Axis            {X; Y; Z; Not Applicable}
+8. Column 8: Value         	 <The outcome>
 
 First, melt the data set by creating a column showing the named feature of each of the feature variables
 ```r
