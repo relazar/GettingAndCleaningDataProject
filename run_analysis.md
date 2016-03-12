@@ -68,7 +68,7 @@ We then create a function which will create a data frame with the following colu
 
 The inputs of the function are:
 
-1.	type - indicating whether the first sub folder is "train" or "test"
+1.	type - indicating whether the first sub folder is "train" or "test". If it is anything else, the master folder will be the assigned folder
 ```r
 find_file_names <- function(type)
 {
