@@ -361,7 +361,7 @@ all_data_7 <- arrange(all_data_6, subject, activity)
 ```
 Export the tidy data by writing it to a CSV file
 ```r
-write.table(all_data_7,"./Tidy Data Set.csv",sep=",")
+write.table(all_data_7,"./Tidy Data Set.txt",quote=FALSE, sep="\t", row.names=FALSE)
 ```
 
 ## 8.	 Create and export the codebook
@@ -402,6 +402,6 @@ codebook <- data.frame(VariableName = names(all_data_7), Description = desc)
 ```
 Export the codebook into a csv file
 ```r
-write.table(codebook,"./Code Book.csv",sep=",")
+write.table(codebook,"./Code Book.txt",,quote=FALSE, sep="\t", row.names=FALSE)
 ```
 
