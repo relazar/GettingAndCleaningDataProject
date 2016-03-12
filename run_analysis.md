@@ -3,11 +3,12 @@
 ## Overview
 
 The task of the course project is to write a script in R called run_analysis.r  which, given a zipped file containing a folder structure with raw data in text format does the following:
+
 1.	Merges the training and the test sets to create one data set.
 2.	Extracts only the measurements on the mean and standard deviation for each measurement.
 3.	Uses descriptive activity names to name the activities in the data set.
 4.	Appropriately labels the data set with descriptive activity names.
-5.	Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+5.	Creates a second, independent tidy data set with the average of each variable for each activity and each subject.6.	
 
 This document will show the R scripts and provide commentary around how these scripts were used to perform each of the steps as listed above. In addition, the scripts used to produce the codebook are also given in the last section of this document.
 
