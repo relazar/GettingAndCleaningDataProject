@@ -2,6 +2,7 @@
 
 ## Overview
 The task of the course project is to write a script in R called run_analysis.r  which, given a zipped file containing a folder structure with raw data in text format does the following:
+
 1.	Merges the training and the test sets to create one data set.
 2.	Extracts only the measurements on the mean and standard deviation for each measurement.
 3.	Uses descriptive activity names to name the activities in the data set.
@@ -45,6 +46,7 @@ unzip(filename)
 
 ## 3.	 Upload the text files into R
 In this step all the relevant text files from the master folder will be uploaded into R. for the purpose of this project we are disregarding the inertial signals and are only interested in the contents of the following text files:
+
 1.	activity_labels.txt – the mapping between the activity numbers (1 to 6) and the labels of the activities (walking, walking upstairs etc,)
 2.	features.txt – the names of the features
 3.	subject_train.txt – the subject ID outcome the training data set with the position corresponding to the actual outcome in the X_train.txt data set
