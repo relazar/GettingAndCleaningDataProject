@@ -1,7 +1,6 @@
 # R script – run_analysis.r
 
 ## Overview
-
 The task of the course project is to write a script in R called run_analysis.r  which, given a zipped file containing a folder structure with raw data in text format does the following:
 
 1.	Merges the training and the test sets to create one data set.
@@ -13,14 +12,14 @@ The task of the course project is to write a script in R called run_analysis.r  
 This document will show the R scripts and provide commentary around how these scripts were used to perform each of the steps as listed above. In addition, the scripts used to produce the codebook are also given in the last section of this document.
 
 ## 1.	 Assign libraries
-
 Assign the libraries which will be used in the scripts
 ```library(plyr)
 library(dplyr)
 library(data.table)
-library(reshape2)```
+library(reshape2)
+```
 
-2.	 Download the file and unzip
+## 2.	 Download the file and unzip
 Assign the url, destination path and the name of the file in the destination path:
 
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
