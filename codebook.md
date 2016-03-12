@@ -21,7 +21,7 @@ Count            | Feature: Average of each variable for each activity and each 
 
 
 VariableName  |	  Description
----------------------------
+--------------|----------------
 subject	      |   The ID of the subject who performed the activity. Values are numeric and range from 1 to 30
 activity	    |   The name of activity undertaken. The activities are: {WALKING, WALKING UPSTAIRS, WALKING DOWNSTAIRS, SITTING, STANDING, LAYING}
 DomainSignal  |	  The time or frequency domain signal. The singals are: {Time, Frequency}
