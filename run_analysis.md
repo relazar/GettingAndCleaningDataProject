@@ -21,11 +21,11 @@ library(reshape2)
 
 ## 2.	 Download the file and unzip
 Assign the url, destination path and the name of the file in the destination path:
-
+```
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 filename <- "UCI HAR Dataset.zip"
 destpath <- "C:/Users/relazar/Documents/Personal/CourSera/Data Science/03 - Getting and Cleaning Data/Course Project/Data"
-
+```
 Check that the destination folder exists and if doesn’t then create it
 if (!file.exists(destpath)) 
 {
