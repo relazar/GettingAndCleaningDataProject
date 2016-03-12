@@ -1,6 +1,6 @@
-R script – run_analysis.r
+# R script – run_analysis.r
 
-Overview
+## Overview
 The task of the course project is to write a script in R called run_analysis.r  which, given a zipped file containing a folder structure with raw data in text format does the following:
 1.	Merges the training and the test sets to create one data set.
 2.	Extracts only the measurements on the mean and standard deviation for each measurement.
