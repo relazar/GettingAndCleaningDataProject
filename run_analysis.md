@@ -12,13 +12,15 @@ The task of the course project is to write a script in R called run_analysis.r  
 
 This document will show the R scripts and provide commentary around how these scripts were used to perform each of the steps as listed above. In addition, the scripts used to produce the codebook are also given in the last section of this document.
 
-1.	 Assign libraries
+## 1.	 Assign libraries
+
 Assign the libraries which will be used in the scripts
+```
 library(plyr)
 library(dplyr)
 library(data.table)
 library(reshape2)
-
+```
 
 2.	 Download the file and unzip
 Assign the url, destination path and the name of the file in the destination path:
