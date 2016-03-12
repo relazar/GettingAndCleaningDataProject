@@ -67,8 +67,9 @@ We then create a function which will create a data frame with the following colu
 3.	 The type of the data set - training or test
 
 The inputs of the function are:
-1.	type - indicating whether the first sub folder is "train" or "test"
 
+1.	type - indicating whether the first sub folder is "train" or "test"
+```r
 find_file_names <- function(type)
 {
   ## If the type is not train or test then leave the first sub folder as blank
@@ -110,17 +111,19 @@ find_file_names <- function(type)
   data.frame(pathname= paths, rdataname = rname, settype = rep(type, length(paths)))
   
 }
-
+```
 We then apply this function to 3 folders: the master folder, the test folder and the train folder to get all the files we need.
-
+```r
 masterFiles <- find_file_names("")
 trainFiles <- find_file_names("train")
 testFiles <- find_file_names("test")
-
+```
 Combine all the above 3 into the data frame which will contain all the information:
+```r
 all_file_names <- rbind(masterFiles, trainFiles, testFiles)
 all_file_names
-
+```
+```
 #	  pathname       	rdataname settype
 #     ./activity_labels.txt activity_labels        
 #            ./features.txt        features        
@@ -130,7 +133,7 @@ all_file_names
 #   ./test/subject_test.txt    subject_test    test
 #         ./test/X_test.txt          X_test    test
 #         ./test/y_test.txt          y_test    test
-
+```
 Use the assign() function in R to loop through every element in the above data frame. The “pathname” indicates the path from where the file will be read in using the read.table() function and the “rdataname” will be the R object for which each respective file will be read in to:
 for (i in 1:nrow(all_file_names))
 {
