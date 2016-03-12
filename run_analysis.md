@@ -57,9 +57,11 @@ In this step all the relevant text files from the master folder will be uploaded
 8.	y_test.txt – the activity number (1 to 6) corresponding to each outcome in the X_test.txt data set
 
 First, set the work directory to be the master folder of the downloaded data structure from the zip file:
+```r
 setwd(paste(getwd(),"/UCI HAR Dataset",sep=""))
-
+```
 We then create a function which will create a data frame with the following columns:
+
 1.	The full path of the text file
 2.	The name of the text file without the suffix - this will be the name of the r data set to be assigned
 3.	 The type of the data set - training or test
