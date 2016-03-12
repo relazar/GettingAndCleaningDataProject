@@ -135,23 +135,27 @@ all_file_names
 #         ./test/y_test.txt          y_test    test
 ```
 Use the assign() function in R to loop through every element in the above data frame. The “pathname” indicates the path from where the file will be read in using the read.table() function and the “rdataname” will be the R object for which each respective file will be read in to:
+```r
 for (i in 1:nrow(all_file_names))
 {
   assign(as.character(all_file_names$rdataname[i]), read.table(as.character(all_file_names$pathname[i]), sep=""))
 }
+```
 
-
-4.	 Combine and join all data sets
+## 4.	 Combine and join all data sets
 In this step, two main activities take place:
+
 1.	The test and training sets are combined into one set for each of the following: subject ID; activity number; outcome
 2.	The three sets above are then joined together along with the mapping from the activity number to each label
 
 Combine the test and training sets:
+```r
 subject <- rbind(subject_train, subject_test)
 y <- rbind(y_train, y_test)
 X <- rbind(X_train, X_test)
-
+```
 Create a unique id by which to join all 3 sets together
+```r
 create_id <- function(data)
 {
   mutate(data, id = 1:nrow(data))
@@ -160,32 +164,43 @@ create_id <- function(data)
 subject <- create_id(subject)
 y <- create_id(y)
 X <- create_id(X)
-
+```
 For the subject and y set rename the column names
+```r
 setnames(subject, "V1", "subject")
 setnames(y, "V1", "activityNum")
+```
 Join all three data sets together
+```r
 datasets <- list(subject, y, X)
 all_data <- join_all(datasets, by="id")
-
+```
 Join the activity labels as well - start by renaming the fields in the activity_labels and y data sets
+```r
 setnames(activity_labels, c("V1","V2"), c("activityNum", "activity"))
-
+```
 Join together with the previous data set created
+```r
 all_data_2 <- join_all(list(activity_labels, all_data), by="activityNum")
+```
 
-5.	 Extract only mean and stdev measurements
+##5.	 Extract only mean and stdev measurements
 We use the feature vector to find only the fields that contain calculations of the mean or standard deviation of the outcomes. We then use the feature vector to link back to the data set created in the previous step to assign the names and keep only the relevant fields
 
 Begin by setting new names for the columns
+```r
 setnames(features, names(features), c("featNum", "featName"))
-
+```
 Subset only those names containing "mean or "std" using the grepl function
+```r
 featmeanstd <- features[grepl("mean\\(\\)|std\\(\\)", features$featName)==TRUE,]
-
+```
 Create a field name equivalent to that in the training and test sets in order to find these fields in the big data set
+```r
 featmeanstd <- mutate(featmeanstd, field = paste("V",featmeanstd$featNum, sep=""))
 head(featmeanstd)
+```
+```
 #  featNum          featName field
 #       1 tBodyAcc-mean()-X    V1
 #       2 tBodyAcc-mean()-Y    V2
@@ -193,10 +208,14 @@ head(featmeanstd)
 #       4  tBodyAcc-std()-X    V4
 #       5  tBodyAcc-std()-Y    V5
 #       6  tBodyAcc-std()-Z    V6
+```
 
 Keep a list of fieldnames we want to keep in the all_data_2 set
+```r
 fieldnames <- c("activityNum","activity","subject", "id", featmeanstd$field)
 fieldnames
+```
+```
 [1] "activityNum" "activity"    "subject"     "id"          "V1"          "V2"          "V3"          "V4"         
  [9] "V5"          "V6"          "V41"         "V42"         "V43"         "V44"         "V45"         "V46"        
 [17] "V81"         "V82"         "V83"         "V84"         "V85"         "V86"         "V121"        "V122"       
@@ -206,14 +225,19 @@ fieldnames
 [49] "V270"        "V271"        "V345"        "V346"        "V347"        "V348"        "V349"        "V350"       
 [57] "V424"        "V425"        "V426"        "V427"        "V428"        "V429"        "V503"        "V504"       
 [65] "V516"        "V517"        "V529"        "V530"        "V542"        "V543"    
-
+```
 Now select only the columns containing the names in the above vector from the large data set with all the outcomes
+```r
 all_data_2 <- all_data_2[,names(all_data_2) %in% fieldnames]
+```
 
 Rename fields in the large data set
+```r
 RenameField <- c("activityNum","activity","subject", "id", as.character(featmeanstd$featName))
 setnames(all_data_2, names(all_data_2), RenameField)
 names(all_data_2)
+```
+```
  [1] "activityNum"                 "activity"                    "subject"                    
  [4] "id"                          "tBodyAcc-mean()-X"           "tBodyAcc-mean()-Y"          
  [7] "tBodyAcc-mean()-Z"           "tBodyAcc-std()-X"            "tBodyAcc-std()-Y"           
@@ -238,13 +262,16 @@ names(all_data_2)
 [64] "fBodyAccMag-std()"           "fBodyBodyAccJerkMag-mean()"  "fBodyBodyAccJerkMag-std()"  
 [67] "fBodyBodyGyroMag-mean()"     "fBodyBodyGyroMag-std()"      "fBodyBodyGyroJerkMag-mean()"
 [70] "fBodyBodyGyroJerkMag-std()" 
+```
 
 Sort the data set by the subject and activity number
+```r
 all_data_3 <- arrange(all_data_2, subject, activityNum)
+```
 
-
-6.	 Restructure the data
+## 6.	 Restructure the data
 In this step we want to create a long and narrow data set in which we split the data into several columns with the following variables for each observation:
+
 Column 1: Domain Signals	 {Time; Frequency}
 Column 2: Accelarator   	 {Body; Gravity; Not Available}
 Column 3: Instrument     	 {Accelerometer; Gyroscope}
@@ -255,47 +282,56 @@ Column 7: Axis           	 {X; Y; Z; Not Applicable}
 Column 8: Value         	 <The outcome>
 
 First, melt the data set by creating a column showing the named feature of each of the feature variables
+```r
 all_data_4 <- melt(all_data_3, id.vars = c("activityNum","activity","subject","id"))
+```
 
 Next, for each variable from the melted data set we want to assign values that are consistent with the columns defined in the beginning of this section. We do this using the grepl() function and creating Boolean vectors which indicate if the component we are interested in is present in each of the variable names. We then create a vector with the relevant name of the variable in each position corresponding to the metled data set and add that vector as a new field in the melted data set
 
 Column 1: Domain Signals {Time; Frequency}
+```r
 domvec <- data.frame(t=grepl("^t",all_data_4$variable),f=grepl("^f",all_data_4$variable))
 domvec$val[which(domvec$t==FALSE & domvec$f == TRUE)] <- "Frequency"
 domvec$val[which(domvec$t==TRUE & domvec$f == FALSE)] <- "Time"
 all_data_4$DomainSignal <- domvec$val
-
+```
 Column 2: Accelarator    {Body; Gravity; Not Available}
+```r
 accvec <- data.frame(b=grepl("Body",all_data_4$variable),g=grepl("Gravity",all_data_4$variable))
 accvec$val[which(accvec$b==TRUE & accvec$g==FALSE)] <- "Body"
 accvec$val[which(accvec$b==FALSE & accvec$g==TRUE)] <- "Gravity"
 all_data_4$Acceleration <- accvec$val
-
+```
 Column 3: Instrument     {Accelerometer; Gyroscope}
+```r
 insvec <- data.frame(a=grepl("Acc",all_data_4$variable),c=grepl("Gyro",all_data_4$variable))
 insvec$val[which(insvec$a==FALSE & insvec$c==TRUE)] <- "Gyroscope"
 insvec$val[which(insvec$a==TRUE & insvec$c==FALSE)] <- "Accelerometer"
 all_data_4$Instrument <- insvec$val
-
+```
 Column 4: Jerk           {Yes; No}
+```r
 jerkvec<- data.frame(yn=grepl("Jerk",all_data_4$variable))
 jerkvec$val[which(jerkvec$yn==TRUE)]<- "Yes"
 jerkvec$val[which(is.na(jerkvec$val))]<- "No"
 all_data_4$Jerk <- jerkvec$val
-
+```
 Column 5: Magnitude      {Yes; No}
+```r
 magvec<- data.frame(yn=grepl("Mag",all_data_4$variable))
 magvec$val[which(magvec$yn==TRUE)]<- "Yes"
 magvec$val[which(is.na(magvec$val))]<- "No"
 all_data_4$Magnitude <- magvec$val
-
+```
 Column 6: Measure        {Mean; Standard Deviation}
+```r
 msdvec <- data.frame(m=grepl("mean()",all_data_4$variable),s=grepl("std()",all_data_4$variable))
 msdvec$val[which(msdvec$m==FALSE & msdvec$s==TRUE)] <- "Standard Deviation"
 msdvec$val[which(msdvec$m==TRUE & msdvec$s==FALSE)] <- "Mean"
 all_data_4$Measure <- msdvec$val
-
+```
 Column 7: Axis           {X; Y; Z; Not Applicable}
+```r
 axisvec <- data.frame(x=grepl("-X",all_data_4$variable),
                       y=grepl("-Y",all_data_4$variable),
                       z=grepl("-Z",all_data_4$variable))
@@ -305,29 +341,34 @@ axisvec$val[which(axisvec$x==TRUE & axisvec$y==FALSE & axisvec$z==FALSE)] <- "X"
 axisvec$val[which(axisvec$x==FALSE & axisvec$y==TRUE & axisvec$z==FALSE)] <- "Y"
 axisvec$val[which(axisvec$x==FALSE & axisvec$y==FALSE & axisvec$z==TRUE)] <- "Z"
 all_data_4$Axis <- axisvec$val
+```
 
-
-7.	 Summarise and output the tidy data set
+## 7.	 Summarise and output the tidy data set
 This step will summarise the melted data set with the new variables assigned by taking the count and average of each bucket. The final tidy data set will then be outputted by writing to a CSV file
 
 Group by the names by which we wish to summarise
+```r
 all_data_5 <- group_by(all_data_4, subject, activity, DomainSignal, Acceleration, Instrument,
                        Jerk, Magnitude, Measure, Axis)
-
+```
 Take the mean of the value and count of occurences in each bucket
+```r
 all_data_6 <- summarise(all_data_5, Average =mean(value), Count = n())
-
+```
 Order the data set by the subject and the activity
+```r
 all_data_7 <- arrange(all_data_6, subject, activity)
-
+```
 Export the tidy data by writing it to a CSV file
+```r
 write.table(all_data_7,"./Tidy Data Set.csv",sep=",")
+```
 
-
-8.	 Create and export the codebook
+## 8.	 Create and export the codebook
 Finally, in this step we create the codebook which lists the variables in the tidy data set and provides a description for each variable
 
 Get the unique list of values for each variable
+```r
 ActivityName <- gsub("_", " ", paste(unique(all_data_4$activity), sep="", collapse=", ")) 
 DomainSignal <- paste(unique(all_data_4$DomainSignal), sep="", collapse=", ") 
 Acceleration <- paste(unique(all_data_4$Acceleration), sep="", collapse=", ") 
@@ -336,8 +377,9 @@ Jerk <- paste(unique(all_data_4$Jerk), sep="", collapse=", ")
 Magnitude <- paste(unique(all_data_4$Magnitude), sep="", collapse=", ") 
 Measure <- paste(unique(all_data_4$Measure), sep="", collapse=", ") 
 Axis <- paste(unique(all_data_4$Axis), sep="", collapse=", ") 
-
+```
 Create a description vector of each variable in the tidy data set
+```r
 desc <- c("The ID of the subject who performed the activity. Values are numeric and range from 1 to 30",
           paste("The name of activity undertaken. The activities are: {", ActivityName, "}", sep=""),
           paste("The time or frequency domain signal. The singals are: {", DomainSignal, "}", sep=""),
@@ -350,12 +392,16 @@ desc <- c("The ID of the subject who performed the activity. Values are numeric 
           "The average value for each bucket",
           "The count of each bucket"
           )
-
+```
 The final codebook is a data frame containing two columns:
+
 1. The name of each variable in the tidy data set
 2. The description of each variable in the tidy data set
+```r
 codebook <- data.frame(VariableName = names(all_data_7), Description = desc)
+```
 Export the codebook into a csv file
+```r
 write.table(codebook,"./Code Book.csv",sep=",")
-
+```
 
