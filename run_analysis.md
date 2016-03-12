@@ -2,7 +2,6 @@
 
 ## Overview
 The task of the course project is to write a script in R called run_analysis.r  which, given a zipped file containing a folder structure with raw data in text format does the following:
-
 1.	Merges the training and the test sets to create one data set.
 2.	Extracts only the measurements on the mean and standard deviation for each measurement.
 3.	Uses descriptive activity names to name the activities in the data set.
@@ -28,20 +27,23 @@ filename <- "UCI HAR Dataset.zip"
 destpath <- "C:/Users/relazar/Documents/Personal/CourSera/Data Science/03 - Getting and Cleaning Data/Course Project/Data"
 ```
 Check that the destination folder exists and if doesn’t then create it
+```r
 if (!file.exists(destpath)) 
 {
   dir.create(destpath)
 }
-
+```
 Download the file from the internet to the destination path
+```r
 download.file(url, paste(destpath,"/",filename,sep=""))
-
+```
 Set the work directory as the destination folder and unzip the contents of the zip file into that same folder
+```r
 setwd(destpath)
 unzip(filename)
+```
 
-
-3.	 Upload the text files into R
+## 3.	 Upload the text files into R
 In this step all the relevant text files from the master folder will be uploaded into R. for the purpose of this project we are disregarding the inertial signals and are only interested in the contents of the following text files:
 1.	activity_labels.txt – the mapping between the activity numbers (1 to 6) and the labels of the activities (walking, walking upstairs etc,)
 2.	features.txt – the names of the features
