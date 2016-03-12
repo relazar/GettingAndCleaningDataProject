@@ -402,6 +402,6 @@ codebook <- data.frame(VariableName = names(all_data_7), Description = desc)
 ```
 Export the codebook into a csv file
 ```r
-write.table(codebook,"./Code Book.txt",,quote=FALSE, sep="\t", row.names=FALSE)
+write.table(codebook,"./Code Book.txt",quote=FALSE, sep="\t", row.names=FALSE)
 ```
 
